@@ -9,10 +9,12 @@ type Env struct {
 	Port    string `toml:“port`
 	Timeout string `toml:“timeout`
 	DB      *struct {
-		Host     string `toml:"host"`
-		Port     int    `toml:"port"`
-		Username string `toml:"username"`
-		Password string `toml:"password"`
+		Driver string `toml:"driver"`
+		Host   string `toml:"host"`
+		Port   string `toml:"port"`
+		User   string `toml:"username"`
+		Pwd    string `toml:"password"`
+		Name   string `toml:"name"`
 	}
 }
 

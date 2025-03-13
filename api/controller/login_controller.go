@@ -10,5 +10,8 @@ type LoginController struct {
 }
 
 func (lc *LoginController) Login(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "pong",
+	})
 
 }
