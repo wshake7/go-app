@@ -8,3 +8,7 @@ Port = "3306"
 User = "root"
 Pwd = "wrywan123"
 Name = "mssg"
+
+[Redis]
+Host = "localhost"
+Port = "6379"

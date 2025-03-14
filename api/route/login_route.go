@@ -4,12 +4,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-app/api/controller"
 	"go-app/bootstrap"
-	"xorm.io/xorm"
 )
 
-func NewLoginRoute(env *bootstrap.Env, engine *xorm.Engine, group *gin.RouterGroup) {
+func NewLoginRoute(app *bootstrap.Application, group *gin.RouterGroup) {
 	lc := controller.LoginController{
-		Env: env,
+		Env:         app.Env,
+		RedisClient: app.RedisClient,
 	}
-	group.POST("/login", lc.Login)
+	group.GET("/login", lc.Login)
 }
