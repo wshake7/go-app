@@ -4,15 +4,19 @@ import (
 	"fmt"
 	"github.com/golang-jwt/jwt/v5"
 	"go-app/domain"
+	"go-app/domain/model"
+	"strconv"
 	"time"
 )
 
-func CreateAccessToken(user *domain.User, secret string, expiry int) (accessToken string, err error) {
-	exp := jwt.NewNumericDate(time.Now())
+func CreateAccessToken(user *model.User, secret string, expiry time.Duration) (accessToken string, err error) {
 	claims := &domain.JwtClaims{
-		ID: user.ID,
+		Id:       user.Id,
+		NickName: user.NickName,
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: exp,
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(expiry)),
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
+			NotBefore: jwt.NewNumericDate(time.Now()),
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -23,12 +27,13 @@ func CreateAccessToken(user *domain.User, secret string, expiry int) (accessToke
 	return t, err
 }
 
-func CreateRefreshToken(user *domain.User, secret string, expiry int) (refreshToken string, err error) {
-	exp := jwt.NewNumericDate(time.Now())
+func CreateRefreshToken(user *model.User, secret string, expiry time.Duration) (refreshToken string, err error) {
 	claimsRefresh := &domain.JwtRefreshClaims{
-		ID: user.ID,
+		Id: user.Id,
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: exp,
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(expiry)),
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
+			NotBefore: jwt.NewNumericDate(time.Now()),
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claimsRefresh)
@@ -70,5 +75,5 @@ func ExtractIDFromToken(requestToken string, secret string) (string, error) {
 		return "", fmt.Errorf("Invalid Token")
 	}
 
-	return claims["id"].(string), nil
+	return strconv.FormatFloat(claims["id"].(float64), 'f', 0, 64), nil
 }

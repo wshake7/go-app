@@ -14,6 +14,8 @@ func main() {
 	defer app.Close()
 
 	env := app.Env
+	engine := app.DBEngine
+	bootstrap.Sync(engine)
 
 	r := gin.Default()
 

@@ -6,27 +6,31 @@ import (
 )
 
 type Env struct {
-	Port    string `toml:“port`
-	Timeout string `toml:“timeout`
-	DB      db
-	Redis   rdb
+	Port                   string
+	Timeout                string
+	DB                     db
+	Redis                  rdb
+	AccessTokenSecret      string
+	AccessTokenExpiryHour  int64
+	RefreshTokenSecret     string
+	RefreshTokenExpiryHour int64
 }
 
 type db struct {
-	Driver string `toml:"driver"`
-	Host   string `toml:"host"`
-	Port   string `toml:"port"`
-	User   string `toml:"username"`
-	Pwd    string `toml:"password"`
-	Name   string `toml:"name"`
+	Driver string
+	Host   string
+	Port   string
+	User   string
+	Pwd    string
+	Name   string
 }
 
 type rdb struct {
-	Host string `toml:"host"`
-	Port string `toml:"port"`
-	User string `toml:"username"`
-	Pwd  string `toml:"password"`
-	DB   int    `toml:"db"`
+	Host string
+	Port string
+	User string
+	Pwd  string
+	DB   int
 }
 
 const configPath = "./config/config.toml"

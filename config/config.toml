@@ -1,5 +1,9 @@
 Port = 8080
 Timeout = 120
+AccessTokenSecret = "asdjklasjdlkasd"
+AccessTokenExpiryHour = 2
+RefreshTokenSecret = "asjdklasjdlasd"
+RefreshTokenExpiryHour = 168
 
 [DB]
 Driver = "mysql"
@@ -7,7 +11,7 @@ Host = "localhost"
 Port = "3306"
 User = "root"
 Pwd = "wrywan123"
-Name = "mssg"
+Name = "go-test"
 
 [Redis]
 Host = "localhost"
