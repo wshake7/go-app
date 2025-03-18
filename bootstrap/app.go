@@ -2,7 +2,7 @@ package bootstrap
 
 import (
 	"github.com/redis/go-redis/v9"
-	"log"
+	"go-app/internal/utils"
 	"xorm.io/xorm"
 )
 
@@ -22,8 +22,7 @@ func App() Application {
 
 func (app *Application) Close() {
 	err := app.DBEngine.Close()
+	utils.Panic(err)
 	err = app.RedisClient.Close()
-	if err != nil {
-		log.Fatal("app close error", err)
-	}
+	utils.Panic(err)
 }

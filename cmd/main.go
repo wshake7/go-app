@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-app/api/middleware"
 	"go-app/api/route"
 	"go-app/bootstrap"
 	"log"
@@ -14,12 +13,8 @@ func main() {
 	defer app.Close()
 
 	env := app.Env
-	engine := app.DBEngine
-	bootstrap.Sync(engine)
 
 	r := gin.Default()
-
-	r.Use(middleware.ErrorHandler())
 
 	route.Setup(&app, r)
 
